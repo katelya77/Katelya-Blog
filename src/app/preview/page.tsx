@@ -703,11 +703,21 @@ function AudioPlayer({
 function DocumentViewer({ url, title, type, onCopyLink }: { url: string; title: string; type: 'pdf' | 'word' | 'text'; onCopyLink: () => void }) {
 	const [isLoading, setIsLoading] = useState(true)
 	const [hasError, setHasError] = useState(false)
+	const [supportsPdf, setSupportsPdf] = useState(true)
+
+	useEffect(() => {
+		if (type !== 'pdf') return
+		if (typeof navigator === 'undefined') return
+		const mimeTypes = navigator.mimeTypes
+		const canEmbedPdf = !!mimeTypes && !!mimeTypes.namedItem('application/pdf')
+		setSupportsPdf(canEmbedPdf)
+	}, [type])
 
 	// Word 文档使用 Microsoft Office Online Viewer
 	const iframeSrc = type === 'word' 
 		? `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`
 		: url
+	const iframeSandbox = type === 'word' ? undefined : 'allow-same-origin allow-scripts allow-popups allow-downloads allow-forms'
 
 	return (
 		<div className="flex h-screen w-screen flex-col bg-gray-900">
@@ -734,16 +744,36 @@ function DocumentViewer({ url, title, type, onCopyLink }: { url: string; title: 
 						<div className="h-12 w-12 animate-spin rounded-full border-4 border-white/30 border-t-white" />
 					</div>
 				)}
-				{hasError ? (
+				{hasError || (type === 'pdf' && !supportsPdf) ? (
 					<div className="flex h-full items-center justify-center text-white">
 						<div className="text-center">
 							<AlertCircle className="mx-auto mb-4 h-12 w-12 text-red-400" />
-							<p className="text-lg">文档加载失败</p>
+							<p className="text-lg">浏览器不支持直接预览</p>
+							<p className="mt-2 text-sm text-white/60">请点击下方按钮打开或下载文件</p>
 							<a href={url} target="_blank" className="mt-4 inline-block rounded-lg bg-white/10 px-6 py-3 hover:bg-white/20">
 								<Download className="mr-2 inline h-5 w-5" />点击下载
 							</a>
 						</div>
 					</div>
+				) : type === 'pdf' ? (
+					<object
+						data={url}
+						type="application/pdf"
+						className="h-full w-full"
+						onLoad={() => setIsLoading(false)}
+						onError={() => { setHasError(true); setIsLoading(false) }}
+						aria-label={title}
+					>
+						<div className="flex h-full items-center justify-center text-white">
+							<div className="text-center">
+								<AlertCircle className="mx-auto mb-4 h-12 w-12 text-red-400" />
+								<p className="text-lg">无法嵌入预览</p>
+								<a href={url} target="_blank" className="mt-4 inline-block rounded-lg bg-white/10 px-6 py-3 hover:bg-white/20">
+									<Download className="mr-2 inline h-5 w-5" />点击下载
+								</a>
+							</div>
+						</div>
+					</object>
 				) : (
 					<iframe
 						src={iframeSrc}
@@ -751,7 +781,7 @@ function DocumentViewer({ url, title, type, onCopyLink }: { url: string; title: 
 						onLoad={() => setIsLoading(false)}
 						onError={() => { setHasError(true); setIsLoading(false) }}
 						title={title}
-						sandbox={type === 'word' ? undefined : 'allow-same-origin allow-scripts'}
+						sandbox={iframeSandbox}
 					/>
 				)}
 			</div>

@@ -39,7 +39,7 @@ export function HomeLayout({ cardStylesData, setCardStylesData, onClose }: HomeL
 	}
 
 	const handleReset = () => {
-		setCardStylesData(cardStylesDefault as CardStyles)
+		setCardStylesData(cardStylesDefault as unknown as CardStyles)
 	}
 
 	return (
