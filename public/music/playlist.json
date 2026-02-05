@@ -1,0 +1,22 @@
+{
+	"tracks": [
+		{
+			"id": "christmas",
+			"name": "圣诞音乐",
+			"url": "/music/christmas.m4a",
+			"isCustom": false
+		},
+		{
+			"id": "custom-1770195128668",
+			"name": "鼓楼 - 赵雷",
+			"url": "https://pan.katelya.eu.org/file/CQACAgUAAyEGAATamr0MAAP2aYH4t4_fl7ggnTeHKUzTyNkpZwUAAjwgAAJxZRBU1R4Nt8Ng_Vw4BA.mp3",
+			"isCustom": true
+		},
+		{
+			"id": "custom-1770271516500",
+			"name": "多远都要在一起 - G.E.M.邓紫棋",
+			"url": "https://pan.katelya.eu.org/file/CQACAgUAAyEGAATamr0MAAP8aYNUcgmBbWlZvMNYQwaPN0ocEVYAAjEcAAJxZSBUzlYJ7BkzIrg4BA.mp3",
+			"isCustom": true
+		}
+	]
+}

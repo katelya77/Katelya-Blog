@@ -1,0 +1,11 @@
+{
+  "title": "【开源】Katelya-TGBed 我最新开发一款私人云盘项目",
+  "tags": [
+    "开源",
+    "Github"
+  ],
+  "date": "2026-02-04T13:57",
+  "summary": "基于 Telegram 和 Cloudflare Pages 的免费无限图床。支持多格式文件存储、内容审核、自定义域名及 R2 大文件扩展，零成本搭建个人媒体库。",
+  "hidden": false,
+  "category": "Coding日志"
+}

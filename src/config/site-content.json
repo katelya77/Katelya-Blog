@@ -1,0 +1,89 @@
+{
+	"meta": {
+		"title": "Katelya‘s Blog",
+		"description": "Katelya 的个人博客，记录前端开发、探索、笔记、随笔。",
+		"username": "Katelya"
+	},
+	"theme": {
+		"colorBrand": "#de4331",
+		"colorPrimary": "#4E3F42",
+		"colorSecondary": "#7b888e",
+		"colorBrandSecondary": "#FCC841",
+		"colorBg": "#eeeeee",
+		"colorBorder": "#ffffff",
+		"colorCard": "#ffffff66",
+		"colorArticle": "#ffffffcc"
+	},
+	"backgroundColors": [
+		"#FCC841",
+		"#DFEFFC",
+		"#DEDE92",
+		"#DE4331",
+		"#FE9750",
+		"#FCC841"
+	],
+	"artImages": [
+		{
+			"id": "cat",
+			"url": "/images/art/cat.png"
+		},
+		{
+			"id": "a46372ff45bc5524",
+			"url": "/images/art/a46372ff45bc5524.jpg"
+		}
+	],
+	"currentArtImageId": "a46372ff45bc5524",
+	"backgroundImages": [
+		{
+			"id": "",
+			"url": ""
+		},
+		{
+			"id": "url-1770183517960",
+			"url": "https://cdn.katelya.top/backgroud.png"
+		}
+	],
+	"currentBackgroundImageId": "url-1770183517960",
+	"socialButtons": [
+		{
+			"id": "github",
+			"type": "github",
+			"value": "https://github.com/katelya77",
+			"label": "Github",
+			"order": 2
+		},
+		{
+			"id": "email",
+			"type": "email",
+			"value": "katelya77@gmail.com",
+			"label": "",
+			"order": 1
+		},
+		{
+			"id": "button-1767103202614",
+			"type": "tg",
+			"value": "https://t.me/katelya77",
+			"label": "",
+			"order": 3
+		},
+		{
+			"id": "button-1767103405146",
+			"type": "x",
+			"value": "https://x.com/katelya77",
+			"label": "",
+			"order": 4
+		}
+	],
+	"clockShowSeconds": true,
+	"summaryInContent": true,
+	"isCachePem": false,
+	"hideEditButton": false,
+	"enableCategories": true,
+	"currentHatIndex": 3,
+	"hatFlipped": false,
+	"enableChristmas": true,
+	"beian": {
+		"text": "萌ICP备20267758号",
+		"link": "https://icp.gov.moe/?keyword=20267758"
+	}
+}

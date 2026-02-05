@@ -1,0 +1,22 @@
+{
+	"videos": [
+		{
+			"id": "fyxrmpj",
+			"name": "随机视频1",
+			"url": "https://api.yujn.cn/api/zzxjj.php",
+			"isCustom": true
+		},
+		{
+			"id": "k0zluiu",
+			"name": "随机视频2",
+			"url": "https://api.yujn.cn/api/xjj.php",
+			"isCustom": true
+		},
+		{
+			"id": "17skqi2",
+			"name": "随机视频3",
+			"url": "https://api.yujn.cn/api/duilian.php",
+			"isCustom": true
+		}
+	]
+}

@@ -1,0 +1,76 @@
+[
+	{
+		"name": "KatelyaTV",
+		"year": 2025,
+		"image": "/images/project/c06a7c17d4dbb41f.webp",
+		"url": "https://tv.katelya.eu.org/",
+		"description": "KatelyaTV是一款跨平台 · 聚合搜索 · 即开即用 · 自托管影视聚合播放器。",
+		"tags": [
+			"Github"
+		],
+		"github": "https://github.com/katelya77/KatelyaTV"
+	},
+	{
+		"name": "DecoTV",
+		"year": 2025,
+		"image": "/images/project/1251f6dd53da20c1.webp",
+		"url": "https://decotv.katelya.eu.org/",
+		"description": " DecoTV 是一个开箱即用的、跨平台的影视聚合播放器。它基于 Next.js 16 + Tailwind CSS 4 + TypeScript 5 构建，支持多资源搜索、在线播放、收藏同步、播放记录、云端存储，让你可以随时随地畅享海量免费影视内容。支持本地无数据库模式、CMS 全量代理、隐私纵深防御等企业级特性。",
+		"tags": [
+			"Github"
+		],
+		"github": "https://github.com/Decohererk/DecoTV"
+	},
+	{
+		"name": "Katelya-AI-Image",
+		"year": 2026,
+		"image": "/images/project/a736c7e8b5725fe1.png",
+		"url": "https://ai.katelya.eu.org/",
+		"description": "一款在线文生图服务的网站。",
+		"tags": [
+			"AI-image"
+		]
+	},
+	{
+		"name": "Katelya-Music",
+		"year": 2026,
+		"image": "/images/project/a736c7e8b5725fe1.png",
+		"url": "https://music.katelya.eu.org/",
+		"description": "一款网络在线播放器，对接了音乐雷达API，可在线听歌。",
+		"tags": [
+			"Music"
+		],
+		"github": "https://github.com/katelya77/musicplayer"
+	},
+	{
+		"name": "Katelya-Image Toolbox",
+		"year": 2026,
+		"image": "/images/project/2c9ce3e9666b643f.png",
+		"url": "https://www.katelya.eu.org/image-toolbox",
+		"description": "一款在线的PNG / JPG 转 WEBP 的压缩转换工具。",
+		"tags": [
+			"图像压缩"
+		]
+	},
+	{
+		"name": "Katelya-TGBed",
+		"year": 2026,
+		"image": "https://pan.katelya.eu.org/file/AgACAgUAAyEGAATamr0MAAP5aYLaVeP31nwaNxYy1R2A_XXgx9wAAooOaxtxZRhUeqnFvq7MDcoBAAMCAAN3AAM4BA.png",
+		"url": "https://github.com/katelya77/Katelya-TGBed",
+		"description": "基于 Telegram 和 Cloudflare Pages 的免费无限图床。支持多格式文件存储、内容审核、自定义域名及 R2 大文件扩展，零成本搭建个人媒体库。",
+		"tags": [
+			"Github"
+		],
+		"github": "https://github.com/katelya77/Katelya-TGBed"
+	},
+	{
+		"name": "Katelya-TGBed",
+		"year": 2026,
+		"image": "https://pan.katelya.eu.org/file/AgACAgUAAyEGAATamr0MAAP5aYLaVeP31nwaNxYy1R2A_XXgx9wAAooOaxtxZRhUeqnFvq7MDcoBAAMCAAN3AAM4BA.png",
+		"url": "https://pan.katelya.eu.org/",
+		"description": "部署在Cloudflare Pages上的网盘服务。",
+		"tags": [
+			"Website"
+		]
+	}
+]
