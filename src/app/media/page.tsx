@@ -830,8 +830,6 @@ function AudioCard({ onBatchAdd }: { onBatchAdd: () => void }) {
 		updateTrack,
 		reorderTracks,
 		setCurrentIndex,
-		reorderTracks,
-		setCurrentIndex,
 		seekTo,
 		playMode,
 		setPlayMode
@@ -1025,7 +1023,7 @@ function AudioCard({ onBatchAdd }: { onBatchAdd: () => void }) {
 						<motion.button
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
-							onClick={nextTrack}
+							onClick={() => nextTrack()}
 							disabled={!currentTrack}
 							className='text-secondary hover:text-primary p-1 disabled:opacity-50'>
 							<SkipForward className='h-5 w-5' />

@@ -22,6 +22,12 @@ interface MusicPlayerStore {
 	playMode: 'sequence' | 'loop' | 'shuffle'
 	setPlayMode: (mode: 'sequence' | 'loop' | 'shuffle') => void
 
+	// State
+	playlist: MusicTrack[]
+	isPlaylistLoaded: boolean
+	hasUnsavedChanges: boolean
+	audioRef: HTMLAudioElement | null
+
 	// Actions
 	setAudioRef: (ref: HTMLAudioElement | null) => void
 	play: () => void
