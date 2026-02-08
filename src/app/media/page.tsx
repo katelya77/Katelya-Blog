@@ -196,22 +196,27 @@ function BatchImportModal({ type, onClose }: { type: 'audio' | 'video' | null; o
 		const lines = text.split('\n').filter(line => line.trim())
 		const items: { url: string; name?: string }[] = []
 
+		// Regex for Markdown image: ![Name](URL)
+		const mdRegex = /!\[(.*?)\]\((.*?)\)/
+
 		for (const line of lines) {
 			const trimmed = line.trim()
-			// 尝试解析 "名称 | URL" 或 "名称|URL" 格式
-			if (trimmed.includes('|')) {
-				const [name, url] = trimmed.split('|').map(s => s.trim())
-				if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+			const match = trimmed.match(mdRegex)
+			
+			if (match) {
+				const name = match[1].trim()
+				const url = match[2].trim()
+				if (url) {
 					items.push({ url, name: name || undefined })
 				}
 			} else if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
-				// 纯 URL
+				// Fallback for pure URL
 				items.push({ url: trimmed })
 			}
 		}
 
 		if (items.length === 0) {
-			toast.error('未识别到有效链接')
+			toast.error('未识别到有效链接，请使用 ![名称](链接) 格式')
 			return
 		}
 
@@ -248,7 +253,7 @@ function BatchImportModal({ type, onClose }: { type: 'audio' | 'video' | null; o
 							</div>
 							<div>
 								<h3 className='font-semibold'>批量添加{type === 'audio' ? '音频' : '视频'}</h3>
-								<p className='text-secondary text-xs'>每行一个链接，支持 "名称 | URL" 格式</p>
+								<p className='text-secondary text-xs'>每行一个链接，支持 Markdown 格式 ![名称](URL)</p>
 							</div>
 						</div>
 						<motion.button
@@ -263,7 +268,7 @@ function BatchImportModal({ type, onClose }: { type: 'audio' | 'video' | null; o
 					<textarea
 						value={text}
 						onChange={e => setText(e.target.value)}
-						placeholder={`示例：\n我的歌曲 | https://example.com/song.mp3\nhttps://example.com/another.mp3`}
+						placeholder={`示例：\n![我的歌曲](https://example.com/song.mp3)\nhttps://example.com/another.mp3`}
 						className='mb-4 h-48 w-full resize-none rounded-xl border bg-white/50 p-4 text-sm outline-none focus:ring-2 focus:ring-blue-200'
 					/>
 

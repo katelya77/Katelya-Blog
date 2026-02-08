@@ -139,7 +139,7 @@ export const useMusicPlayerStore = create<MusicPlayerStore>((set, get) => ({
 	},
 
 	addTrack: (url, name) => {
-		const id = `custom-${Date.now()}`
+		const id = `custom-${crypto.randomUUID()}`
 		const trackName = name || `自定义音乐 ${get().playlist.filter(t => t.isCustom).length + 1}`
 		const newTrack: MusicTrack = { id, name: trackName, url, isCustom: true }
 

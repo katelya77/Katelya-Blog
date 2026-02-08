@@ -32,7 +32,7 @@ interface VideoPlayerStore {
 	playPrev: () => void
 }
 
-const generateId = () => Math.random().toString(36).substring(2, 9)
+const generateId = () => crypto.randomUUID()
 
 const extractVideoName = (url: string): string => {
 	try {
