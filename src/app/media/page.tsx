@@ -35,7 +35,10 @@ import {
 	Key,
 	FileText,
 	Upload,
-	RefreshCw
+	RefreshCw,
+	Repeat,
+	Repeat1,
+	Shuffle
 } from 'lucide-react'
 
 import { SnowDecoration } from '@/components/snow-decoration'
@@ -268,7 +271,9 @@ function BatchImportModal({ type, onClose }: { type: 'audio' | 'video' | null; o
 					<textarea
 						value={text}
 						onChange={e => setText(e.target.value)}
-						placeholder={`示例：\n![我的歌曲](https://example.com/song.mp3)\nhttps://example.com/another.mp3`}
+						placeholder={type === 'audio' 
+							? `示例：\n![我的歌曲](https://example.com/song.mp3)\nhttps://example.com/another.mp3`
+							: `示例：\n![我的视频](https://example.com/video.mp4)\nhttps://example.com/another.mp4`}
 						className='mb-4 h-48 w-full resize-none rounded-xl border bg-white/50 p-4 text-sm outline-none focus:ring-2 focus:ring-blue-200'
 					/>
 
@@ -825,7 +830,11 @@ function AudioCard({ onBatchAdd }: { onBatchAdd: () => void }) {
 		updateTrack,
 		reorderTracks,
 		setCurrentIndex,
-		seekTo
+		reorderTracks,
+		setCurrentIndex,
+		seekTo,
+		playMode,
+		setPlayMode
 	} = useMusicPlayerStore()
 
 	const [showAddForm, setShowAddForm] = useState(false)
@@ -926,76 +935,120 @@ function AudioCard({ onBatchAdd }: { onBatchAdd: () => void }) {
 				</motion.button>
 			</div>
 
-			{/* 当前播放 */}
-			{currentTrack && (
-				<div className='mb-4 rounded-2xl border bg-white/30 p-4'>
-					<div className='mb-3 flex items-center gap-3'>
-						<div className='bg-brand/20 flex h-12 w-12 items-center justify-center rounded-xl'>
-							<Music className='text-brand h-6 w-6' />
-						</div>
-						<div className='flex-1 overflow-hidden'>
-							<p className='truncate font-medium'>{currentTrack.name}</p>
-							<p className='text-secondary text-xs'>{currentTrack.isCustom ? '自定义曲目' : '默认曲目'}</p>
-						</div>
+			{/* 播放器区域 (常驻) */}
+			<div className='mb-4 rounded-2xl border bg-white/30 p-4'>
+				<div className='mb-3 flex items-center gap-3'>
+					<div className={cn(
+						'flex h-12 w-12 items-center justify-center rounded-xl transition-colors',
+						currentTrack ? 'bg-brand/20' : 'bg-black/5'
+					)}>
+						<Music className={cn(
+							'h-6 w-6 transition-colors',
+							currentTrack ? 'text-brand' : 'text-secondary/50'
+						)} />
 					</div>
-
-					{/* 进度条 */}
-					<div className='mb-2'>
-						<div
-							className='h-1.5 cursor-pointer overflow-hidden rounded-full bg-black/5'
-							onClick={handleProgressClick}>
-							<div className='bg-brand h-full transition-all' style={{ width: `${progressPercent}%` }} />
-						</div>
-						<div className='text-secondary mt-1 flex justify-between text-xs'>
-							<span>{formatTime(progress)}</span>
-							<span>{formatTime(duration)}</span>
-						</div>
-					</div>
-
-					{/* 控制按钮 */}
-					<div className='flex items-center justify-between'>
-						<div className='flex items-center gap-2'>
-							<motion.button
-								whileHover={{ scale: 1.1 }}
-								whileTap={{ scale: 0.9 }}
-								onClick={prevTrack}
-								className='text-secondary hover:text-primary p-1'>
-								<SkipBack className='h-5 w-5' />
-							</motion.button>
-							<motion.button
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={toggle}
-								className='bg-brand flex h-10 w-10 items-center justify-center rounded-full text-white'>
-								{isPlaying ? <Pause className='h-5 w-5' /> : <Play className='ml-0.5 h-5 w-5' />}
-							</motion.button>
-							<motion.button
-								whileHover={{ scale: 1.1 }}
-								whileTap={{ scale: 0.9 }}
-								onClick={nextTrack}
-								className='text-secondary hover:text-primary p-1'>
-								<SkipForward className='h-5 w-5' />
-							</motion.button>
-						</div>
-
-						{/* 音量 */}
-						<div className='flex items-center gap-2'>
-							<button onClick={toggleMute} className='text-secondary hover:text-primary'>
-								{isMuted || volume === 0 ? <VolumeX className='h-4 w-4' /> : <Volume2 className='h-4 w-4' />}
-							</button>
-							<input
-								type='range'
-								min={0}
-								max={1}
-								step={0.01}
-								value={volume}
-								onChange={handleVolumeChange}
-								className='range-track h-1.5 w-20'
-							/>
-						</div>
+					<div className='flex-1 overflow-hidden'>
+						<p className={cn(
+							'truncate font-medium transition-colors',
+							!currentTrack && 'text-secondary'
+						)}>
+							{currentTrack ? currentTrack.name : '未选择曲目'}
+						</p>
+						<p className='text-secondary text-xs'>
+							{currentTrack ? (currentTrack.isCustom ? '自定义曲目' : '默认曲目') : '请从下方列表选择播放'}
+						</p>
 					</div>
 				</div>
-			)}
+
+				{/* 进度条 */}
+				<div className='mb-2'>
+					<div
+						className={cn(
+							'h-1.5 overflow-hidden rounded-full bg-black/5 transition-all',
+							currentTrack ? 'cursor-pointer' : 'cursor-not-allowed'
+						)}
+						onClick={currentTrack ? handleProgressClick : undefined}>
+						<div 
+							className='bg-brand h-full transition-all' 
+							style={{ width: `${currentTrack ? progressPercent : 0}%` }} 
+						/>
+					</div>
+					<div className='text-secondary mt-1 flex justify-between text-xs'>
+						<span>{currentTrack ? formatTime(progress) : '0:00'}</span>
+						<span>{currentTrack ? formatTime(duration) : '0:00'}</span>
+					</div>
+				</div>
+
+				{/* 控制按钮 */}
+				<div className='flex items-center justify-between'>
+					<div className='flex items-center gap-2'>
+						{/* 模式切换 */}
+						<motion.button
+							whileHover={{ scale: 1.1 }}
+							whileTap={{ scale: 0.9 }}
+							onClick={() => {
+								const modes: ('sequence' | 'loop' | 'shuffle')[] = ['sequence', 'loop', 'shuffle']
+								const next = modes[(modes.indexOf(playMode) + 1) % modes.length]
+								setPlayMode(next)
+								const modeName = { sequence: '顺序播放', loop: '单曲循环', shuffle: '随机播放' }
+								toast.success(`切换为：${modeName[next]}`)
+							}}
+							className='text-secondary hover:text-primary p-1'
+							title='切换播放模式'
+						>
+							{playMode === 'sequence' && <Repeat className='h-4 w-4' />}
+							{playMode === 'loop' && <Repeat1 className='h-4 w-4' />}
+							{playMode === 'shuffle' && <Shuffle className='h-4 w-4' />}
+						</motion.button>
+					</div>
+
+					<div className='flex items-center gap-3'>
+						<motion.button
+							whileHover={{ scale: 1.1 }}
+							whileTap={{ scale: 0.9 }}
+							onClick={prevTrack}
+							disabled={!currentTrack}
+							className='text-secondary hover:text-primary p-1 disabled:opacity-50'>
+							<SkipBack className='h-5 w-5' />
+						</motion.button>
+						<motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+							onClick={toggle}
+							disabled={!currentTrack}
+							className={cn(
+								'flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+								currentTrack ? 'bg-brand shadow-lg' : 'bg-gray-300'
+							)}>
+							{isPlaying ? <Pause className='h-5 w-5' /> : <Play className='ml-0.5 h-5 w-5' />}
+						</motion.button>
+						<motion.button
+							whileHover={{ scale: 1.1 }}
+							whileTap={{ scale: 0.9 }}
+							onClick={nextTrack}
+							disabled={!currentTrack}
+							className='text-secondary hover:text-primary p-1 disabled:opacity-50'>
+							<SkipForward className='h-5 w-5' />
+						</motion.button>
+					</div>
+
+					{/* 音量 */}
+					<div className='flex items-center gap-2'>
+						<button onClick={toggleMute} className='text-secondary hover:text-primary'>
+							{isMuted || volume === 0 ? <VolumeX className='h-4 w-4' /> : <Volume2 className='h-4 w-4' />}
+						</button>
+						<input
+							type='range'
+							min={0}
+							max={1}
+							step={0.01}
+							value={volume}
+							onChange={handleVolumeChange}
+							className='range-track h-1.5 w-20'
+						/>
+					</div>
+				</div>
+			</div>
 
 			{/* 添加按钮 */}
 			<div className='mb-3 flex items-center justify-between'>

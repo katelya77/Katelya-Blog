@@ -39,7 +39,7 @@ export function GlobalAudioProvider() {
 		}
 
 		const handleEnded = () => {
-			nextTrack()
+			nextTrack(true)
 		}
 
 		const handlePlay = () => {

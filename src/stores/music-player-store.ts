@@ -18,13 +18,9 @@ interface MusicPlayerStore {
 	duration: number
 	volume: number
 
-	// 播放列表
-	playlist: MusicTrack[]
-	isPlaylistLoaded: boolean
-	hasUnsavedChanges: boolean
-
-	// Audio 元素引用
-	audioRef: HTMLAudioElement | null
+	// Playback Mode
+	playMode: 'sequence' | 'loop' | 'shuffle'
+	setPlayMode: (mode: 'sequence' | 'loop' | 'shuffle') => void
 
 	// Actions
 	setAudioRef: (ref: HTMLAudioElement | null) => void
@@ -36,7 +32,7 @@ interface MusicPlayerStore {
 	setVolume: (volume: number) => void
 	setCurrentIndex: (index: number) => void
 	setCurrentTrack: (track: MusicTrack | null) => void
-	nextTrack: () => void
+	nextTrack: (isAuto?: boolean) => void
 	prevTrack: () => void
 	addTrack: (url: string, name?: string) => void
 	removeTrack: (id: string) => void
@@ -62,6 +58,9 @@ export const useMusicPlayerStore = create<MusicPlayerStore>((set, get) => ({
 	isPlaylistLoaded: false,
 	hasUnsavedChanges: false,
 	audioRef: null,
+	playMode: 'sequence',
+
+	setPlayMode: (mode) => set({ playMode: mode }),
 
 	setAudioRef: (ref) => set({ audioRef: ref }),
 
@@ -126,15 +125,49 @@ export const useMusicPlayerStore = create<MusicPlayerStore>((set, get) => ({
 
 	setCurrentTrack: (track) => set({ currentTrack: track }),
 
-	nextTrack: () => {
-		const { currentIndex, playlist, setCurrentIndex } = get()
-		const nextIndex = (currentIndex + 1) % playlist.length
+	nextTrack: (isAuto = false) => {
+		const { currentIndex, playlist, setCurrentIndex, playMode } = get()
+		if (playlist.length === 0) return
+
+		let nextIndex = 0
+		
+		if (playMode === 'loop' && isAuto) {
+			// In loop mode, auto-next repeats the current track
+			// But we need to reset progress to 0 and play again
+			// setCurrentIndex(currentIndex) will do that if we implement it right, 
+			// checking inner logic of setCurrentIndex
+			// actually setCurrentIndex sets progress to 0 and plays.
+			nextIndex = currentIndex
+		} else if (playMode === 'shuffle') {
+			// Random index distinct from defined current if possible
+			if (playlist.length > 1) {
+				do {
+					nextIndex = Math.floor(Math.random() * playlist.length)
+				} while (nextIndex === currentIndex)
+			}
+		} else {
+			// Sequence or Manual Loop (Next button click)
+			nextIndex = (currentIndex + 1) % playlist.length
+		}
+		
 		setCurrentIndex(nextIndex)
 	},
 
 	prevTrack: () => {
-		const { currentIndex, playlist, setCurrentIndex } = get()
-		const prevIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1
+		const { currentIndex, playlist, setCurrentIndex, playMode } = get()
+		if (playlist.length === 0) return
+
+		let prevIndex = 0
+        if (playMode === 'shuffle') {
+             // Shuffle prev behavior is tricky without history. 
+             // Simple version: Pick random. Better: Go to previous in list (User expectation usually).
+             // Let's stick to sequence for Prev unless strict history is needed.
+             // Or just random again? Random is annoying for Prev.
+             // Let's use sequence for Prev even in shuffle mode for simplicity unless requested otherwise.
+             prevIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1
+        } else {
+		     prevIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1
+        }
 		setCurrentIndex(prevIndex)
 	},
 
