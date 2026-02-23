@@ -53,18 +53,18 @@
 		]
 	},
 	{
-		"name": "Katelya-TGBed",
+		"name": "K-Vault",
 		"year": 2026,
 		"image": "https://pan.katelya.eu.org/file/AgACAgUAAyEGAATamr0MAAP5aYLaVeP31nwaNxYy1R2A_XXgx9wAAooOaxtxZRhUeqnFvq7MDcoBAAMCAAN3AAM4BA.png",
-		"url": "https://github.com/katelya77/Katelya-TGBed",
+		"url": "https://github.com/katelya77/K-Vault",
 		"description": "基于 Telegram 和 Cloudflare Pages 的免费无限图床。支持多格式文件存储、内容审核、自定义域名及 R2 大文件扩展，零成本搭建个人媒体库。",
 		"tags": [
 			"Github"
 		],
-		"github": "https://github.com/katelya77/Katelya-TGBed"
+		"github": "https://github.com/katelya77/K-Vault"
 	},
 	{
-		"name": "Katelya-TGBed",
+		"name": "K-Vault",
 		"year": 2026,
 		"image": "https://pan.katelya.eu.org/file/AgACAgUAAyEGAATamr0MAAP5aYLaVeP31nwaNxYy1R2A_XXgx9wAAooOaxtxZRhUeqnFvq7MDcoBAAMCAAN3AAM4BA.png",
 		"url": "https://pan.katelya.eu.org/",
