@@ -30,9 +30,17 @@
 		{
 			"id": "a46372ff45bc5524",
 			"url": "/images/art/a46372ff45bc5524.jpg"
+		},
+		{
+			"id": "url-1772089969650",
+			"url": "https://api.yujn.cn/api/gzl_ACG.php"
+		},
+		{
+			"id": "url-1772090185141",
+			"url": "https://t.alcy.cc/fj"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "url-1772090185141",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -41,9 +49,13 @@
 		{
 			"id": "url-1770183517960",
 			"url": "https://cdn.katelya.top/backgroud.png"
+		},
+		{
+			"id": "url-1772089980054",
+			"url": "https://api.yujn.cn/api/gzl_ACG.php"
 		}
 	],
-	"currentBackgroundImageId": "url-1770183517960",
+	"currentBackgroundImageId": "url-1772089980054",
 	"socialButtons": [
 		{
 			"id": "github",
