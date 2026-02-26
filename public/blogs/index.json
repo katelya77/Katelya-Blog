@@ -1,5 +1,19 @@
 [
   {
+    "slug": "k-vault",
+    "title": "【重大更新】K-Vault：从图床到全能聚合云盘，打造你的零成本私有数据金库！",
+    "tags": [
+      "Github",
+      "K-Vault",
+      "个人云盘",
+      "Cloudflare"
+    ],
+    "date": "2026-02-26T14:29",
+    "summary": "开源项目现已史诗级重构并正式更名为 K-Vault（原 Katelya-TGBed）！作为一款基于 Cloudflare 的零成本 Serverless 聚合云盘，本次大更新不仅强化了 Telegram 核心引擎（新增 Webhook 直传与最高 2GB 扩展支持），更重磅接入了 R2、S3 兼容 API、Discord 及 HuggingFace 等多元化存储后端。打破单一存储局限，无需购买服务器，助你自由组合打造全能的私有数据金库，彻底告别存储焦虑！",
+    "hidden": false,
+    "category": "Coding日志"
+  },
+  {
     "slug": "Katelya-TGBed",
     "title": "【开源】Katelya-TGBed 我最新开发一款私人云盘项目",
     "tags": [
