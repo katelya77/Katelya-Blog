@@ -1,12 +1,6 @@
 {
 	"tracks": [
 		{
-			"id": "christmas",
-			"name": "圣诞音乐",
-			"url": "/music/christmas.m4a",
-			"isCustom": false
-		},
-		{
 			"id": "custom-1770195128668",
 			"name": "鼓楼 - 赵雷.mp3",
 			"url": "https://pan.katelya.eu.org/file/CQACAgUAAyEGAATamr0MAAP2aYH4t4_fl7ggnTeHKUzTyNkpZwUAAjwgAAJxZRBU1R4Nt8Ng_Vw4BA.mp3",
